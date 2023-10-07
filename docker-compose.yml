@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  # client:
+  #   build:
+  #     context: ./client
+  #     target: dev
+  service:
+    build:
+      context: ./service
+      target: dev
+    volumes:
+      - ./service:/opt/app
+      - ./.env:/opt/app/.env
+  db:
+    image: postgres:16
+    restart: always
+    ports:
+      - 5454:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASS}
